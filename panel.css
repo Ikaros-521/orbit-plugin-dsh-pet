@@ -1,0 +1,59 @@
+/* dsh-pet bridge panel internals — status card + install + drive + prefs.
+   All colours flow through the host light-dark() tokens. */
+.dpb-root { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; justify-content: center; }
+.dpb-main { width: min(640px, 100%); padding: 18px 20px 28px; display: flex; flex-direction: column; gap: 12px; }
+.dpb-hidden { display: none !important; }
+
+.dpb-group {
+  border: 1px solid var(--line); border-radius: var(--r-md, 10px);
+  padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;
+}
+
+/* --- status ------------------------------------------------------------------ */
+.dpb-status { flex-direction: row; align-items: center; gap: 12px; }
+.dpb-led { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 12px; background: var(--ink-faint); }
+.dpb-led.on { background: light-dark(#2fb56b, #55e08f); box-shadow: 0 0 8px light-dark(rgba(47, 181, 107, .5), rgba(85, 224, 143, .5)); }
+.dpb-led.idle { background: var(--amber, #e8a13c); }
+.dpb-led.off { background: light-dark(#d06060, #ff8484); }
+.dpb-status-body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.dpb-status-line { font-size: 14px; font-weight: 700; color: var(--ink); }
+.dpb-status-sub { font-size: 11px; color: var(--ink-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dpb-status-btns { display: flex; gap: 6px; flex: 0 0 auto; }
+
+.dpb-group button {
+  appearance: none; font: inherit; font-size: 12px; cursor: pointer;
+  color: var(--ink); background: transparent;
+  border: 1px solid var(--line); border-radius: var(--r-sm); padding: 5px 12px;
+}
+.dpb-group button:hover:not(:disabled) { background: var(--inset); }
+.dpb-group button:disabled { opacity: .5; cursor: default; }
+.dpb-start { border-color: light-dark(rgba(185, 106, 0, .45), rgba(255, 171, 46, .5)) !important; }
+
+/* --- install ------------------------------------------------------------------- */
+.dpb-install-title { font-size: 13px; color: var(--ink-dim); }
+.dpb-install-row { display: flex; gap: 8px; }
+.dpb-install-log {
+  margin: 0; max-height: 150px; overflow-y: auto; font-size: 11px; line-height: 1.6;
+  background: var(--inset); border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: 8px 10px; color: var(--ink-dim); white-space: pre-wrap; word-break: break-all;
+}
+
+/* --- drive ------------------------------------------------------------------------ */
+.dpb-drive-title { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-faint); }
+.dpb-say, .dpb-anim { display: flex; gap: 8px; }
+.dpb-text, .dpb-anim-select {
+  flex: 1 1 auto; min-width: 0; font: inherit; font-size: 13px; color: var(--ink);
+  background: var(--inset); border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: 6px 10px; outline: none;
+}
+.dpb-text:focus { border-color: var(--amber); }
+.dpb-result { font-size: 12px; color: var(--ink-dim); min-height: 16px; word-break: break-all; }
+
+/* --- prefs --------------------------------------------------------------------------- */
+.dpb-prefs summary { font-size: 12px; color: var(--ink-dim); cursor: pointer; }
+.dpb-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-dim); }
+.dpb-row span { flex: 1 1 auto; }
+.dpb-row input[type=number] { width: 84px; }
+.dpb-row input[type=text] { flex: 1 1 auto; min-width: 0; }
+.dpb-row input[type=checkbox] { accent-color: var(--amber, #e8a13c); }
+.dpb-save-prefs { align-self: flex-start; }

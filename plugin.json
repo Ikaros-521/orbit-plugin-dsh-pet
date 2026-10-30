@@ -1,0 +1,20 @@
+{
+  "id": "dsh-pet-bridge",
+  "name": { "zh": "DSH 桌宠", "en": "DSH Pet (dsh-pet)" },
+  "desc": {
+    "zh": "在工具箱里安装、启停并联动 dsh-pet 桌宠（鲸鱼娘）：让它说话、点播 100+ 动画，官方独立模式进程接管",
+    "en": "Install, supervise and drive the official dsh-pet whale companion — speech bubbles, 100+ animations, via its standalone mode process"
+  },
+  "version": "0.1.0",
+  "category": "other",
+  "author": "Ikaros-521",
+  "keywords": ["dsh-pet", "pet", "桌宠", "鲸鱼", "whale", "deepseek", "harness", "standalone"],
+  "icon": "icon.svg",
+  "defaultEnabled": true,
+  "backend": "backend.js",
+  "panel": { "script": "panel.js", "style": "panel.css" },
+  "actions": [
+    { "id": "toggle", "label": { "zh": "启停 DSH 桌宠", "en": "Start/stop DSH pet" }, "method": "toggle", "hotkey": null },
+    { "id": "speakClipboard", "label": { "zh": "让桌宠说剪贴板", "en": "Pet says clipboard" }, "method": "speakClipboard", "hotkey": null }
+  ]
+}
