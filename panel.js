@@ -11,7 +11,9 @@
 
   window.Toolbox.panel({
     mount(root) {
-      root.className = 'dpb-root';
+      // keep the host's panel-view base class (shared rules key off it) and
+      // add ours beside it
+      root.classList.add('dpb-root');
       let st = null;      // last status snapshot
       let anims = [];     // animation pool names
 
@@ -24,17 +26,17 @@
               <div class="dpb-status-sub"></div>
             </div>
             <div class="dpb-status-btns">
-              <button class="dpb-start"></button>
-              <button class="dpb-reconnect"></button>
-              <button class="dpb-settings"></button>
+              <button type="button" class="dpb-start btn small"></button>
+              <button type="button" class="dpb-reconnect btn ghost small"></button>
+              <button type="button" class="dpb-settings btn ghost small"></button>
             </div>
           </div>
 
           <div class="dpb-install dpb-group dpb-hidden">
             <div class="dpb-install-title"></div>
             <div class="dpb-install-row">
-              <button class="dpb-npm"></button>
-              <button class="dpb-adopt"></button>
+              <button type="button" class="dpb-npm btn small"></button>
+              <button type="button" class="dpb-adopt btn ghost small"></button>
             </div>
             <pre class="dpb-install-log dpb-hidden"></pre>
           </div>
@@ -42,14 +44,14 @@
           <div class="dpb-drive dpb-group dpb-hidden">
             <div class="dpb-drive-title"></div>
             <div class="dpb-say">
-              <input class="dpb-text" type="text" />
-              <button class="dpb-feed"></button>
-              <button class="dpb-whisper"></button>
+              <input class="dpb-text input" type="text" />
+              <button type="button" class="dpb-feed btn small"></button>
+              <button type="button" class="dpb-whisper btn ghost small"></button>
             </div>
             <div class="dpb-anim">
-              <select class="dpb-anim-select"></select>
-              <button class="dpb-play"></button>
-              <button class="dpb-refresh"></button>
+              <select class="dpb-anim-select input"></select>
+              <button type="button" class="dpb-play btn small"></button>
+              <button type="button" class="dpb-refresh btn ghost small"></button>
             </div>
             <div class="dpb-result"></div>
           </div>
@@ -57,10 +59,10 @@
           <details class="dpb-prefs dpb-group">
             <summary></summary>
             <label class="dpb-row"><input type="checkbox" class="dpb-autostart" /><span></span></label>
-            <label class="dpb-row"><span>${t('端口（0=默认）', 'Port (0 = default)')}</span><input type="number" class="dpb-port" min="0" max="65535" /></label>
-            <label class="dpb-row"><span>${t('npm 镜像', 'npm registry')}</span><input type="text" class="dpb-registry" /></label>
-            <label class="dpb-row"><span>${t('npm 代理（可选）', 'npm proxy (optional)')}</span><input type="text" class="dpb-proxy" placeholder="http://127.0.0.1:10808" /></label>
-            <button class="dpb-save-prefs"></button>
+            <label class="dpb-row"><span>${t('端口（0=默认）', 'Port (0 = default)')}</span><input type="number" class="dpb-port input" min="0" max="65535" /></label>
+            <label class="dpb-row"><span>${t('npm 镜像', 'npm registry')}</span><input type="text" class="dpb-registry input" /></label>
+            <label class="dpb-row"><span>${t('npm 代理（可选）', 'npm proxy (optional)')}</span><input type="text" class="dpb-proxy input" placeholder="http://127.0.0.1:10808" /></label>
+            <button type="button" class="dpb-save-prefs btn small"></button>
           </details>
         </div>`;
 
@@ -98,6 +100,7 @@
           ? `${st.install.version} · ${st.install.mode === 'exe' ? '绿色包' : 'npm'} · ${st.install.dir}`
           : t(`将安装到 ${st.vendorRoot}`, `Will install to ${st.vendorRoot}`);
         els.start.textContent = running ? t('停止', 'Stop') : t('启动', 'Start');
+        els.start.classList.toggle('warn', !!running);
         els.install.classList.toggle('dpb-hidden', !!st.install);
         els.drive.classList.toggle('dpb-hidden', !running);
         els.settings.disabled = !running;

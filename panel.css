@@ -1,5 +1,7 @@
-/* dsh-pet bridge panel internals — status card + install + drive + prefs.
-   All colours flow through the host light-dark() tokens. */
+/* dsh-pet bridge panel internals — cards on the host workbench.
+   Control skins come from the host's shared .btn / .input classes (the same
+   kit the settings page uses); this file only handles layout + narrow bits.
+   Colours flow through the host light-dark() tokens. */
 .dpb-root { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; justify-content: center; }
 .dpb-main { width: min(640px, 100%); padding: 18px 20px 28px; display: flex; flex-direction: column; gap: 12px; }
 .dpb-hidden { display: none !important; }
@@ -20,15 +22,6 @@
 .dpb-status-sub { font-size: 11px; color: var(--ink-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dpb-status-btns { display: flex; gap: 6px; flex: 0 0 auto; }
 
-.dpb-group button {
-  appearance: none; font: inherit; font-size: 12px; cursor: pointer;
-  color: var(--ink); background: transparent;
-  border: 1px solid var(--line); border-radius: var(--r-sm); padding: 5px 12px;
-}
-.dpb-group button:hover:not(:disabled) { background: var(--inset); }
-.dpb-group button:disabled { opacity: .5; cursor: default; }
-.dpb-start { border-color: light-dark(rgba(185, 106, 0, .45), rgba(255, 171, 46, .5)) !important; }
-
 /* --- install ------------------------------------------------------------------- */
 .dpb-install-title { font-size: 13px; color: var(--ink-dim); }
 .dpb-install-row { display: flex; gap: 8px; }
@@ -40,20 +33,18 @@
 
 /* --- drive ------------------------------------------------------------------------ */
 .dpb-drive-title { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-faint); }
-.dpb-say, .dpb-anim { display: flex; gap: 8px; }
-.dpb-text, .dpb-anim-select {
-  flex: 1 1 auto; min-width: 0; font: inherit; font-size: 13px; color: var(--ink);
-  background: var(--inset); border: 1px solid var(--line); border-radius: var(--r-sm);
-  padding: 6px 10px; outline: none;
-}
-.dpb-text:focus { border-color: var(--amber); }
+.dpb-say, .dpb-anim { display: flex; gap: 8px; align-items: center; }
+.dpb-say .btn, .dpb-anim .btn { flex: 0 0 auto; }
+/* .input ships width:100% for stacked forms — here it fills the row instead */
+.dpb-say .input, .dpb-anim .input { flex: 1 1 auto; min-width: 0; width: auto; }
+.dpb-anim-select { font-family: inherit; }
 .dpb-result { font-size: 12px; color: var(--ink-dim); min-height: 16px; word-break: break-all; }
 
 /* --- prefs --------------------------------------------------------------------------- */
 .dpb-prefs summary { font-size: 12px; color: var(--ink-dim); cursor: pointer; }
 .dpb-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-dim); }
-.dpb-row span { flex: 1 1 auto; }
-.dpb-row input[type=number] { width: 84px; }
-.dpb-row input[type=text] { flex: 1 1 auto; min-width: 0; }
+.dpb-row > span { flex: 1 1 auto; }
+.dpb-row .input { flex: 1 1 auto; min-width: 0; width: auto; }
+.dpb-row input[type=number] { flex: 0 0 auto; width: 92px; }
 .dpb-row input[type=checkbox] { accent-color: var(--amber, #e8a13c); }
 .dpb-save-prefs { align-self: flex-start; }
